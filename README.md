@@ -1,6 +1,6 @@
 #JsonDB  
 
-A simple, JSON **key-value** storage engine for Java
+A simple, JSON **key-value** storage engine for Java 1.8
 
 ##Installation
 
