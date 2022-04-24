@@ -22,7 +22,7 @@ mvn clean install -U
 ```
 
 Follow up by creating the JAR file:
-```console
+```
 mvn package
 ```
 
