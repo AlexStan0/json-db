@@ -6,15 +6,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 public class JsonDB {
 
     public JsonDB(String path) throws Exception {
-         checkIfValid(path);
-    }
-
-    private static void checkIfValid(String path) throws Exception {
-        //check to make sure path is provided
+        
         if(path.equals("")){
             throw new Error("Missing path argument");
         }
@@ -27,15 +24,12 @@ public class JsonDB {
             //if file does not exist it creates a new one in the current directory
             System.out.println("File does not exist");
             file.createNewFile();
-            
-            try {
-                FileWriter out = new FileWriter(path);
-                out.write("[\n]");
-                out.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
+            //create a new JSONObject and write it
+            JSONObject jsonObject = new JSONObject();
+            FileWriter writer = new FileWriter(path);
+            writer.write(jsonObject.toString());
+            writer.close();
 
         }
 
@@ -43,39 +37,64 @@ public class JsonDB {
         if(!file.canRead() || !file.canWrite()){
             throw new Error("File is not accessible, check permissions");
         }
-    } //end checkIfValie()
+
+    } //end constructor
 
     /**
-     * Pushes JSON data 
-     * @param path
-     * @param varargs
+     * Writes JSON data to JSON file 
+     * @param path path for the JSON file
+     * @param varargs data that the user wants written to the JSON file
+     * @throws Exception 
      */
-    public static void put(String path, Object... varargs){
-        
+    public void put(String path, Object... varargs) throws Exception {
+
+        //checks to make sure varargs 'varargs' are in key, value format
         if(varargs.length %2 != 0){
-            throw new Error("varags do not follow (key, value) format");
+            throw new Error("varargs do not follow (key, value) format");
         }
 
-        JSONParser jsonP = new JSONParser();
+        //create new JSON parser and FileReader
+        JSONParser parser = new JSONParser();
+        FileReader jsonFile = new FileReader(path);
 
-        try {
+        try{
 
-            JSONObject jsondb = (JSONObject)jsonP.parse(new FileReader(path));
+            //Reads the data in JSON file and assigns to Object jsonData
+            Object jsonData = parser.parse(jsonFile);
 
-            for(int i = 0; i < varargs.length; i+=2){
-                jsondb.put((String)varargs[i-1], varargs[i]);
-            }
+            //assigns data to a JSONObject object
+            JSONObject jsonDataObj = (JSONObject) jsonData;
 
-            FileWriter out = new FileWriter(path);
-            out.write(jsondb.toString());
-            out.close();
+            //Loops through varargs to check the provided
+            for(int i = 1; i < varargs.length; i+=2){
+                
+                //checks to see if 'varargs[i]' is an array
+                if(varargs[i].getClass().isArray()){
+                    //if value is an array, convert to JSONArray
+                    JSONArray jsonArr = (JSONArray) varargs[i];
+                    jsonDataObj.put(varargs[i-1], jsonArr);
+                    
+                } else {
+                    //if value is not an array, assign to JSONObject
+                    jsonDataObj.put(varargs[i-1], varargs[i]);
+                }
 
-        } catch(Exception e) {
+            } //end for-loop
+
+            //create new FileWriter and write to file
+            FileWriter writer = new FileWriter(path);
+            writer.write(jsonDataObj.toString());
+            writer.close();
+
+        } catch (Exception e) {
+
+            //if there is an error, print the error
             e.printStackTrace();
-        } //end try-catch 
 
-    }
+        }
+
+    } //end put()
 
 
 
-}
+} //end JsonDB
