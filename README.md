@@ -1,23 +1,35 @@
-#JsonDB  
+# Simple JsonDB
 
-A simple, JSON **key-value** storage engine for Java 1.8
+JsonDB is a fast, light-weight JSON key-value storage engine for Java
+> [What is key-value storage?](https://redis.com/nosql/key-value-databases/)
 
-##Installation
+## Installation
 
-You will need:
-    * [Java 1.8](https://www.java.com/download/ie_manual.jsp) 
-    * [Maven 1.4](https://maven.apache.org/download.cgi) 
-        * Note: You can use newer versions though
-                I can't promise it will work as intended
-
-clone the repository:
-`git clone https://github.com/AlexStan0/json-db`
-
-Move into where you've cloned the repo and update the dependencies:
-`cd /path/to/install/` and `mvn clean install -U`
+**Pre-Requisites:**
+  * [Java 1.8](https://www.java.com/download/ie_manual.jsp) 
+  * [Maven 1.4](https://maven.apache.org/download.cgi)
+    * Feel free to use newer versions of these but I <br> can't promise that everything will work as intented
 
 
+<br>Start off by cloning the repository: 
+```
+git clone https://github.com/AlexStan0/json-db
+```
 
+Then cd into the same directory as `pom.xml` and install/update maven dependencies:
+```
+mvn clean install -U
+```
+
+Follow up by creating the JAR file:
+```console
+mvn package
+```
+
+You can use run the JAR using `java -jar /path/to/file.jar` or <br>
+you can import the jar into your maven project.
+
+## The Problem
 
 
 
