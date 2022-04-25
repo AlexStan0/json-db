@@ -29,7 +29,34 @@ mvn package
 You can use run the JAR using `java -jar /path/to/file.jar` or <br>
 you can import the jar into your maven project.
 
-## The Problem
+## Usage
 
+### Import
+```Java
+import com.jsondb.JsonDB;
+```
 
+### Instantiation
+```Java
+JsonDB db = new JsonDB(path)
+```
 
+the path for example is where your JSON file is located <br>
+for example: `C:/users/<name>/Desktop/javaProject/database.json`<br>
+
+The constructor also checks if the file exists and if it dosent it creates <br>
+in the the highest folder and writes `{}` to it
+
+### Set a key
+`db.set(path, "key", "value");`
+
+The provided `key` must always have a `value` or else the program will throw <br>
+an error and not write the data.
+
+### Get a key
+
+`db.objGet(path, key)` or `db.arrGet(path, key)`
+
+When using `db.objGet()` you are requesting for it to find a key that only <br>
+has a singular value and use `db.arrGet()` when the key value is an array
+ 
