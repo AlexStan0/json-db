@@ -12,6 +12,18 @@ public class AppTest {
 
         JsonDB jsonDB = new JsonDB(path);
 
+        Object[] names = {"John", "Jane", "Joe"};
+
+        jsonDB.put(path, "name", "Alice", "age", "25");
+
+        Object name = JsonDB.objGet(path, "name");
+        System.out.println(name);
+
+        JsonDB.put(path, "names", names);
+        Object[] nameArr = JsonDB.arrGet(path, "names");
+
+        System.out.println(names);
+    
     }
 
 }
