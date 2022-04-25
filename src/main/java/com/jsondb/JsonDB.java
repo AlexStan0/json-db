@@ -47,7 +47,7 @@ public class JsonDB {
      * @param varargs data that the user wants written to the JSON file
      * @throws Exception 
      */
-    public static void put(String path, Object... varargs) throws Exception {
+    public static void set(String path, Object... varargs) throws Exception {
 
         //checks to make sure varargs 'varargs' are in key, value format
         if(varargs.length %2 != 0){
@@ -86,7 +86,7 @@ public class JsonDB {
                     //adds the varargs to the JSONObject
                     jsonDataObj.put(varargs[i-1], varargs[i]);
 
-                }
+                } 
 
             }
 
@@ -131,6 +131,7 @@ public class JsonDB {
 
     public static Object[] arrGet(String path, String key) throws Exception {
 
+            //create new JSON parser and FileReader
             JSONParser parser = new JSONParser();
             FileReader jsonFile = new FileReader(path);
 
