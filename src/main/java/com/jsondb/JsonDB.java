@@ -144,9 +144,8 @@ public class JsonDB {
                 throw new Error("The wanted data is null and not fetchable");
             }
 
-            //checks to make sure value for provided key is not an arrays
-
-            JSONArray jsonArr = new JSONArray();
+            //gets JSONArray from key and assigns to jsonArray
+            JSONArray jsonArr = (JSONArray) jsonDataObj.get(key);
 
             //assigns data to wantedData
             Object[] wantedData = jsonArr.toArray();

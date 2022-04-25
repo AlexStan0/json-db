@@ -22,7 +22,7 @@ public class AppTest {
         JsonDB.put(path, "names", names);
         Object[] nameArr = JsonDB.arrGet(path, "names");
 
-        System.out.println(names);
+        System.out.println(Arrays.toString(nameArr));
     
     }
 
