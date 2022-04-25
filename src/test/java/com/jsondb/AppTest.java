@@ -10,20 +10,24 @@ public class AppTest {
 
         String path = "app.json";
 
-        JsonDB jsonDB = new JsonDB(path);
+        final JsonDB DB = new JsonDB(path);
 
         Object[] names = {"John", "Jane", "Joe"};
+        Object[] nameList = {"Arr", "Anne", "Alex"};
 
-        jsonDB.set(path, "name", "Alice", "age", "25");
+        DB.set(path, "names", names);
+        DB.set(path, "name list", nameList);
+        DB.set(path, "name", "Alex");
 
-        Object name = JsonDB.objGet(path, "name");
+        Object name = DB.objGet(path, "name");
         System.out.println(name);
 
-        JsonDB.set(path, "names", names);
-        Object[] nameArr = JsonDB.arrGet(path, "names");
+        DB.set(path, "name", "John");
 
-        System.out.println(Arrays.toString(nameArr));
-    
-    }
+        Object name1 = DB.objGet(path, "name");
+        System.out.println(name1);
+
+        Object[] nameListArr = DB.arrGet(path, "name list");
+    }   
 
 }

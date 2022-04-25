@@ -11,6 +11,11 @@ import org.json.simple.JSONArray;
 
 public class JsonDB {
 
+    /**
+     * Creates DB and checks JSON file integrity
+     * @param path Path to file with JSON data
+     * @throws Exception
+     */
     public JsonDB(String path) throws Exception {
         
         if(path.equals("")){
@@ -42,12 +47,12 @@ public class JsonDB {
     } //end constructor
 
     /**
-     * Writes JSON data to JSON file 
+     * Writes JSON data to JSON file in key-value format
      * @param path path for the JSON file
      * @param varargs data that the user wants written to the JSON file
      * @throws Exception 
      */
-    public static void set(String path, Object... varargs) throws Exception {
+    public void set(String path, Object... varargs) throws Exception {
 
         //checks to make sure varargs 'varargs' are in key, value format
         if(varargs.length %2 != 0){
@@ -64,32 +69,28 @@ public class JsonDB {
             Object jsonData = parser.parse(jsonFile);
 
             //assigns data to a JSONObject object
-            JSONObject jsonDataObj = (JSONObject) jsonData;
+            JSONObject jsonDataObj = (JSONObject)jsonData;
 
             //Loops through varargs to check the provided varargs is an Array
-            for(int i = 1; i < varargs.length; ++i){
+            for(int i = 1; i < varargs.length; i+=2){
 
                 if(varargs[i].getClass().isArray()){
+
+                    Object[] varArr = (Object[]) varargs[i];
+
+                    JSONArray jsonArr = new JSONArray();
+
+                    jsonArr.addAll(Arrays.asList(varArr));
+
+                    jsonDataObj.put(varargs[i-1], jsonArr);
                     
-                    Object[] varargsArr = (Object[]) varargs[i];
-
-                    //assigns the varargs to a JSONArray object
-                    JSONArray jsonArray = new JSONArray();
-                    jsonArray.addAll(Arrays.asList(varargsArr));
-
-                    //adds the JSONArray to the JSONObject
-                    jsonDataObj.put(varargs[i-1], jsonArray);
-
-
                 } else {
 
-                    //adds the varargs to the JSONObject
                     jsonDataObj.put(varargs[i-1], varargs[i]);
 
-                } 
+                }
 
-            }
-
+            } //end for-loop 'i'
 
             //create new FileWriter and write to file
             FileWriter writer = new FileWriter(path);
@@ -105,6 +106,13 @@ public class JsonDB {
 
     } //end put()
 
+    /**
+     * 
+     * @param path
+     * @param key
+     * @return
+     * @throws Exception
+     */
     public static Object objGet(String path, String key) throws Exception {
             
             //create new JSON parser and FileReader
@@ -127,7 +135,7 @@ public class JsonDB {
 
             return wantedData;
     
-        } //end get()
+    } //end objGet()
 
     public static Object[] arrGet(String path, String key) throws Exception {
 
@@ -141,7 +149,7 @@ public class JsonDB {
             //assigns data to a JSONObject object
             JSONObject jsonDataObj = (JSONObject) jsonData;
 
-            if(jsonDataObj.get(key) == null){
+            if(!jsonDataObj.get(key).getClass().isArray()){
                 throw new Error("The wanted data is null and not fetchable");
             }
 
