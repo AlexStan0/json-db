@@ -18,16 +18,9 @@ public class AppTest {
         DB.set(path, "names", names);
         DB.set(path, "name list", nameList);
         DB.set(path, "name", "Alex");
-
-        Object name = DB.objGet(path, "name");
-        System.out.println(name);
-
-        DB.set(path, "name", "John");
-
-        Object name1 = DB.objGet(path, "name");
-        System.out.println(name1);
-
-        Object[] nameListArr = DB.arrGet(path, "name list");
+        
+        Boolean hasName = DB.has(path, "name");
+        System.out.println(hasName);
     }   
 
 }

@@ -107,10 +107,10 @@ public class JsonDB {
     } //end put()
 
     /**
-     * 
-     * @param path
-     * @param key
-     * @return
+     * gets the value attached to key as long as the value isnt an array
+     * @param path path to the JSON file
+     * @param key key associated  with wanted value
+     * @return Object wantedData 
      * @throws Exception
      */
     public static Object objGet(String path, String key) throws Exception {
@@ -137,6 +137,13 @@ public class JsonDB {
     
     } //end objGet()
 
+    /**
+     * 
+     * @param path path to the JSON file
+     * @param key key associated with wanted value
+     * @return Object[] wantedData
+     * @throws Exception
+     */
     public static Object[] arrGet(String path, String key) throws Exception {
 
             //create new JSON parser and FileReader
@@ -149,7 +156,7 @@ public class JsonDB {
             //assigns data to a JSONObject object
             JSONObject jsonDataObj = (JSONObject) jsonData;
 
-            if(!jsonDataObj.get(key).getClass().isArray()){
+            if(!jsonDataObj.get(key).getClass().isArray() || jsonDataObj.get(key) == null){
                 throw new Error("The wanted data is null and not fetchable");
             }
 
@@ -162,5 +169,44 @@ public class JsonDB {
             return wantedData;
 
     } //end arrGet()
+
+    /**
+     * Check to see if the JSON object has a key
+     * @param path path to JSON file
+     * @param key key that is checked for if it exists
+     * @return  Boolean doesExist
+     * @throws Exception
+     */
+    public static Boolean has(String path, String key) throws Exception {
+
+        //create boolean for ifExists
+        Boolean ifExists;
+
+        //create new JSON paser and FileReader 
+        JSONParser parser = new JSONParser();
+        FileReader jsonFile = new FileReader(path);
+
+        //reads file and creates JSON Object 
+        Object jsonData = parser.parse(jsonFile);
+        JSONObject jsonDataObj = (JSONObject) jsonData;
+
+        //checks to see if the key exists and 
+        if(jsonDataObj.get(key) != null){
+            
+            ifExists = true;
+            return ifExists;
+
+        } else {
+
+            ifExists = false;
+            return ifExists;
+
+        }
+
+    } //end 
+
+    public static void delete(String path, String key) throws Exception {
+        
+    }
 
 } //end JsonDB
