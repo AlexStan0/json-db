@@ -11,8 +11,8 @@ public class AppTest {
 
         final JsonDB DB = new JsonDB(path);
 
-        Object hasAge = DB.has("Alex", "ame");
-        System.out.println(hasAge);
+        DB.delete("Alex");
+
     }   
 
 

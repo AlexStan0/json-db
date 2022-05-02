@@ -355,6 +355,57 @@ public class JsonDB {
 
     public static void delete(String key, String... objKey) throws Exception {
 
-    }
+        //make sure only one vararg is sepcified
+        if(objKey.length > 1){
+            throw new Error("You can not provide more than one vararg");
+        }
+
+        //create new JSON parser and file reader
+        JSONParser parser = new JSONParser();
+        FileReader jsonFile = new FileReader(path);
+
+        //create a JSON Object with the data retrieved from the JSON file
+        Object jsonData = parser.parse(jsonFile);
+        JSONObject jsonDataObj = (JSONObject) jsonData;
+
+        //check that they key provided exists in the JSON file
+        Boolean exists = jsonDataObj.get(key) != null ? true : false;
+
+        //if the key does not exists tell user
+        if(!exists){
+            throw new Error("The JSON key can not be found");
+        }
+
+        //check to see if the wanted key is a nest JSON Object
+        if(jsonDataObj.get(key) instanceof JSONObject && !objKey.equals("")){
+
+            //create a new JSON Object with the data from the nested JSON Object
+            JSONObject nestedJsonObj = (JSONObject) jsonDataObj.get(key);
+
+            //make sure that the key in the nested JSON Object exists
+            Boolean nestedExists = nestedJsonObj.get(objKey[0]) != null ? true : false;
+
+            //inform user if it does not exist
+            if(!nestedExists){
+                throw new Error("The nested JSON key can not be found");
+            } 
+            
+            //remove key from nested JSON Object
+            nestedJsonObj.remove(objKey[0]);
+
+            jsonDataObj.put(key, nestedJsonObj);
+
+        } else {
+
+            //remove data from JSON Object
+            jsonDataObj.remove(key);
+
+        }
+
+        FileWriter writer = new FileWriter(path);
+        writer.write(jsonDataObj.toString());
+        writer.close();
+
+    } //end delete()
 
 } //end JsonDB
