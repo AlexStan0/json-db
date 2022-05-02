@@ -1,1 +1,8 @@
-{"Alex":{"age":16},"name":"Alex","age":20}
+{
+    "Alex": {
+        "age": 21,
+        "city": "Los Angeles",
+        "state": "California",
+        "names": ["Alex", "John", "Ti-xing"]
+    }
+}

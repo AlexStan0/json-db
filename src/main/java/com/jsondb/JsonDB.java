@@ -118,7 +118,7 @@ public class JsonDB {
 
         }
 
-    } //end setSingle()
+    } //end set()
 
     /**
      * Allows user to create nested Object 
@@ -139,7 +139,7 @@ public class JsonDB {
 
         try{
             
-            //assigns data to jsonData object
+            //reads JSON file and creates JSONObject from read data
             Object jsonData = parser.parse(jsonFile);
             JSONObject jsonObj = (JSONObject) jsonData;
 
@@ -163,7 +163,7 @@ public class JsonDB {
 
                     //add JSON Array to nested JSON Object
                     userDefinedObject.put(varargs[i-1], jsonArr);
-
+                    
                 } else {
 
                     //add vararg to nested JSON Object
@@ -192,11 +192,16 @@ public class JsonDB {
      * @param path is the path to the JSON file
      * @param key is associated  with wanted value
      * @return Object wantedData 
-     * @throws Error when user wants to pull Array 
+     * @throws Error when wanted data is not getable
      * @throws Exception
      */
-    public static Object objGet(String key, Object objKey) throws Exception {
+    public static Object get(String key, String... objKey) throws Exception {
             
+            //make sure only one vararg is passed 
+            if(objKey.length > 1){
+                throw new Error("You can only pass in one vararg");
+            }
+
             //create new JSON parser and FileReader
             JSONParser parser = new JSONParser();
             FileReader jsonFile = new FileReader(path);
@@ -207,34 +212,31 @@ public class JsonDB {
             //assigns data to a JSONObject object
             JSONObject jsonDataObj = (JSONObject) jsonData;
 
-            //throw error if the value in the key is an array
+            //checks to see if data is an array
             if(jsonDataObj.get(key).getClass().isArray()){
                 throw new Error("Data is an array and not returnable");
             }
 
-            //check to make sure the objKey isn't null and that the key is a JSONObject
-            if(objKey != null && jsonDataObj.get(key) instanceof JSONObject){
+            if(jsonDataObj.get(key) instanceof JSONObject){
+            
+                //get JSON Object into JSONObject variable to read from
+                JSONObject nestedJsonObj = (JSONObject) jsonDataObj.get(key);
 
-                //created new JSON Object and assign it the nested JSON Object
-                JSONObject coolData = (JSONObject) jsonDataObj.get(key);
-
-                //get data from nested JSON Object using optional 'objKey'
-                Object wantedData = coolData.get(objKey);
-
-                System.out.println(wantedData);
+                //get wanted data from nested JSON Object
+                Object wantedData = nestedJsonObj.get(objKey[0]);
 
                 return wantedData;
 
             } else {
 
-                //if 'objKey' is not provided just data from main JSON Object
-                Object wantedData = (Object) jsonDataObj.get(key);
+                //get data associated with 'key' value in JSON Object
+                Object wantedData = jsonDataObj.get(key);
 
                 return wantedData;
 
-            }   
-    
-    } //end objGet()
+            }
+
+    } //end get()
 
     /**
      * 
@@ -244,7 +246,12 @@ public class JsonDB {
      * @throws Error if element 'key' does not exist as an array
      * @throws Exception
      */
-    public static Object[] arrGet(String key, Object... objKey) throws Exception {
+    public static Object[] arrGet(String key, String... objKey) throws Exception {
+
+            //make sure only one vararg is passed 
+            if(objKey.length > 1){
+                throw new Error("You can only pass in one vararg");
+            }
 
             //create new JSON parser and FileReader
             JSONParser parser = new JSONParser();
@@ -256,16 +263,13 @@ public class JsonDB {
             //assigns data to a JSONObject object
             JSONObject jsonDataObj = (JSONObject) jsonData;
 
-            //check to see if the data is an array or if the key does not exists
-            if(!jsonDataObj.get(key).getClass().isArray() || jsonDataObj.get(key) == null){
-                throw new Error("The wanted data is not fetchable");
-            }
-
             if(jsonDataObj.get(key) instanceof JSONObject) {
 
                 JSONObject userDefinedObj = (JSONObject) jsonDataObj.get(key);
 
-                Object[] wantedArr = (Object[]) userDefinedObj.get(objKey);
+                JSONArray jsonArr = (JSONArray) userDefinedObj.get(objKey[0]);
+
+                Object[] wantedArr = jsonArr.toArray();
 
                 return wantedArr;
 
@@ -288,9 +292,15 @@ public class JsonDB {
      * @param path path to JSON file
      * @param key key that is checked for if it exists
      * @return  Boolean doesExist
+     * @throws Error if more than one vararg is provided
      * @throws Exception
      */
-    public static Boolean has(String key) throws Exception {
+    public static Boolean has(String key, String... objKey) throws Exception {
+
+        //make sure only one vararg is passed 
+        if(objKey.length > 1){
+            throw new Error("You can only pass in one vararg");
+        }
 
         //create new JSON paser and FileReader 
         JSONParser parser = new JSONParser();
@@ -300,21 +310,50 @@ public class JsonDB {
         Object jsonData = parser.parse(jsonFile);
         JSONObject jsonDataObj = (JSONObject) jsonData;
 
-        //checks to see if the key exists 
-        if(jsonDataObj.get(key) != null){
+        //check to see if value associated with key is a JSON Object
+        if(jsonDataObj.get(key) instanceof JSONObject) {
 
-            //if it exists return true
-            return true;
+            //check to see if user is checking if a nested object exists
+            if(objKey.length == 0){
+                
+                //instaiate a JSON Object with the value from the nested object
+                JSONObject nestedObj = (JSONObject) jsonDataObj.get(key);
+
+                //check if the JSON Object exists or not
+                Boolean exists = nestedObj != null ? true : false;
+
+                return exists;
+
+            } else {
+
+                //create new JSON Object to pull data from
+                JSONObject nestedJsonObj = (JSONObject) jsonDataObj.get(key);
+
+                //get data from nested JSON Object 
+                Object jsonInfo = nestedJsonObj.get(objKey[0]);
+
+                //check if the data exists
+                Boolean exists = jsonInfo != null ? true : false;
+
+                return exists;
+
+            }
 
         } else {
 
-            //return false if it doesn't exist
-            return false;
-        }
+            //get the data from the normal object
+            Object jsonInfo = jsonDataObj.get(key);
 
-    } //end 
+            //check if the data exists
+            Boolean exists = jsonInfo != null ? true : false;
 
-    public static void delete(String key) throws Exception {
+            return exists;
+
+        } 
+
+    } //end end()
+
+    public static void delete(String key, String... objKey) throws Exception {
 
     }
 
