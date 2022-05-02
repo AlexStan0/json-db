@@ -12,17 +12,17 @@ JsonDB is a fast, light-weight JSON key-value storage engine for Java
 
 
 <br>Start off by cloning the repository: 
-```
+```bash
 git clone https://github.com/AlexStan0/json-db
 ```
 
 Then cd into the same directory as `pom.xml` and install/update maven dependencies:
-```
+```bash
 mvn clean install -U
 ```
 
 Follow up by creating the JAR file:
-```
+```bash
 mvn package
 ```
 
@@ -48,14 +48,14 @@ The constructor also checks if the file exists and if it dosent it creates <br>
 in the the highest folder and writes `{}` to it
 
 ### Set a key
-`db.set(path, "key", "value");`
+`db.set("key", "value");`
 
 The provided `key` must always have a `value` or else the program will throw <br>
 an error and not write the data.
 
 ### Get a key
 
-`db.objGet(path, key)` or `db.arrGet(path, key)`
+`db.objGet(key)` or `db.arrGet(key)`
 
 When using `db.objGet()` you are requesting for it to find a key that only <br>
 has a singular value and use `db.arrGet()` when the key value is an array
