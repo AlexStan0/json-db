@@ -7,8 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import java.util.NoSuchElementException;
+import org.json.simple.parser.JSONParser;
 import java.lang.IllegalArgumentException;
 
 public class JsonDB {
@@ -123,7 +123,7 @@ public class JsonDB {
     } //end set()
 
     /**
-     * Allows user to create nested Object 
+     * Allows user to create nested JSON Object 
      * @param objKey key for JSONObject value
      * @param varargs Data that the nested object will hold
      * @throws NoSuchElementException if varargs dont follow key-value format
