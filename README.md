@@ -44,8 +44,8 @@ JsonDB db = new JsonDB(path)
 The path for example is where your JSON file is located. <br>
 For example: `C:/users/<name>/Desktop/javaProject/database.json`<br>
 
-The constructor also checks if the file exists and if it dosent it creates <br>
-in the the highest folder and writes `{}` to it
+The constructor also checks if the file exists and if the file dosen't exist <br>
+it creates it in the the highest folder and writes `{}` to it
 
 ### Set a key
 `db.set(key, value);`
