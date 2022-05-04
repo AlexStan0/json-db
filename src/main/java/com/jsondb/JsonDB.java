@@ -198,7 +198,7 @@ public class JsonDB {
      * @throws IllegalArgumentException when wanted data is not getable
      * @throws Exception
      */
-    public static Object get(String key, String... objKey) throws Exception {
+    public static Object get(String key, Object... objKey) throws Exception {
             
             //make sure only one vararg is passed 
             if(objKey.length > 1){
@@ -250,7 +250,7 @@ public class JsonDB {
      * @throws IllegalArgumentException if the wanted data is not array
      * @throws Exception
      */
-    public static Object[] arrGet(String key, String... objKey) throws Exception {
+    public static Object[] arrGet(String key, Object... objKey) throws Exception {
 
             //make sure only one vararg is passed 
             if(objKey.length > 1){
@@ -311,7 +311,7 @@ public class JsonDB {
      * @throws IllegalArgumentException if more than one 'objKey' is provided
      * @throws Exception
      */
-    public static Boolean has(String key, String... objKey) throws Exception {
+    public static Boolean has(String key, Object... objKey) throws Exception {
 
         //make sure only one vararg is passed 
         if(objKey.length > 1){
@@ -377,7 +377,7 @@ public class JsonDB {
      * @throws NoSuchElementException if program can not find 'key' or 'objKey' in JSON file
      * @throws Exception
      */
-    public static void delete(String key, String... objKey) throws Exception {
+    public static void delete(String key, Object... objKey) throws Exception {
 
         //make sure only one vararg is sepcified
         if(objKey.length > 1){
