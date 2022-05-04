@@ -80,7 +80,7 @@ Example: <br>
   Say you had this JSON file 
   ```JSON
   {
-    "game name": "my game name",
+    "game-name": "my-game-name",
     "player 1": {
         "username": "KingSlayer123",
         "score": 274, 
@@ -89,8 +89,8 @@ Example: <br>
     }
   }
   ```
-If you just wanted to get the value associated with `game name` you <br>
-could just call `db.get("game name")` and the value `my game name` would be returned with no problems. <br>
+If you just wanted to get the value associated with `game-name` you <br>
+could just call `db.get("game-name")` and the value `"my-game-name"` would be returned with no problems. <br>
 
 Now if you wanted to get player 1 username you would put the key associated with the nested <br>
 JSON Object in the `key` parameter; and the key `username` in the `objKey` paramter. <br>
