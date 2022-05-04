@@ -53,7 +53,7 @@ in the the highest folder and writes `{}` to it
 The provided `key` must always have a `value` or else the program will <br>
 throw an error and not write the data to the JSON file. <br>
 
-`db.setObj(objKey, key, value);
+`db.setObj(objKey, key, value)`
 
 This does the exact same thing as the previous `set` method but instead <br>
 it will create a new JSON Object, write the data, and associate the data with <br>
@@ -72,7 +72,7 @@ an array. To do that you should use the `db.arrGet(key, objKey)` method
 This method is the same as the `get` method but returns an <br>
 Object array instead of a simple Object type. 
 
-** NOTE: ** <br>
+### NOTE: <br>
 As you may have noticed both of these methods have a second parameter `objKey`.<br>
 This parameter is 100% optional and is ment to be use when the `key` parameter references a nested JSON Object <br>
 
