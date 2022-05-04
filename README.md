@@ -26,7 +26,7 @@ Follow up by creating the JAR file:
 mvn package
 ```
 
-You can use run the JAR using `java -jar /path/to/file.jar` or <br>
+You can use run the JAR using `java -jar /path/to/json-db-1.0.jar` or <br>
 you can import the jar into your maven project.
 
 ## Usage
