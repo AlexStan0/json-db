@@ -113,5 +113,5 @@ This parameter is 100% optional and is ment to be use when the `key` parameter r
 
 Say you wanted to check for the existance of `game-name`, you could call `db.has("game-name")` <br>
 But what if you wanted to check for the existance of `score` in the nested JSON Object `player 1`? <br>
-This is where the 'objKey' parameter comes in. If the 'key' paramter references a nested JSON Object it fetch or check <br>
+This is where the 'objKey' parameter comes in. If the 'key' paramter references a nested JSON Object it fetches or checks <br>
 for the existance of `objKey` in the nested JSON Object.
