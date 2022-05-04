@@ -41,8 +41,8 @@ import com.jsondb.JsonDB;
 JsonDB db = new JsonDB(path)
 ```
 
-the path for example is where your JSON file is located <br>
-for example: `C:/users/<name>/Desktop/javaProject/database.json`<br>
+The path for example is where your JSON file is located. <br>
+For example: `C:/users/<name>/Desktop/javaProject/database.json`<br>
 
 The constructor also checks if the file exists and if it dosent it creates <br>
 in the the highest folder and writes `{}` to it
@@ -84,7 +84,7 @@ can use the `db.has()` method to check for it.
 `db.delete(key, objKey)`
 
 If a certain key needs to be deleted you can delete it using the `db.delete()` method. <br>
-This method scans the JSON file to make sure the key exists and the deletes it. The `objKey` <br>
+This method scans the JSON file to make sure the key exists and the deletes it. The `objKey` parameter <br>
 is used in case the `key` parameter is a nested JSON Object. 
 
 ### Delete everything
