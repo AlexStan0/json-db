@@ -89,8 +89,8 @@ is used in case the `key` parameter is a nested JSON Object.
 
 ### Delete everything
 
-If you no longer need to use the database and don't want the IRS to find your data than this method is for you <br>
-When you call `db.delete` it creates a new JSON Object and overwrites the one in the JSON file. Once this method <br>
+If you no longer need to use the database and don't want the IRS to find your data then this method is for you. <br>
+When you call `db.delete()` it creates a new JSON Object and overwrites the old one in the JSON file. Once this method <br>
 has been called all data previously written to the JSON file will be lost.
 
 ### NOTE: <br>
