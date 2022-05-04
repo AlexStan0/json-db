@@ -67,7 +67,7 @@ the `objKey` as a nested JSON Object
 This get method returns an Object, meaning that it can not return <br>
 an array. To do that you should use the `db.arrGet(key, objKey)` method
 
-`db.get(key, objKey)`
+`db.arrGet(key, objKey)`
 
 This method is the same as the `get` method but returns an <br>
 Object array instead of a simple Object type. 
