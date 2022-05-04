@@ -32,6 +32,19 @@ you can import the jar into your maven project.
 ## Usage
 
 ### Import
+
+[if you just want the jar file](https://drive.google.com/file/d/1LVdUH3Bf8ik0sw11ytxZuSF6om4rCcS5/view?usp=sharing)
+
+Add these lines to you `pom.xml` 
+```XML
+<dependency>
+    <groupId>com.jsondb</groupId>
+    <artifactId>jsondb</artifactId>
+    <version>1.0</version>
+    <systemPath>/path/to/json-db-1.0.jar</systemPath>
+</dependency>
+```
+
 ```Java
 import com.jsondb.JsonDB;
 ```
@@ -42,7 +55,7 @@ JsonDB db = new JsonDB(path)
 ```
 
 The path for example is where your JSON file is located. <br>
-For example: `C:/users/<name>/Desktop/javaProject/database.json`<br>
+For example: `C:/Users/<user>/path/to/javaProject/database.json`<br>
 
 The constructor also checks if the file exists and if the file dosen't exist <br>
 it creates it in the the highest folder and writes `{}` to it
