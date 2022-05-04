@@ -50,13 +50,22 @@ in the the highest folder and writes `{}` to it
 ### Set a key
 `db.set("key", "value");`
 
-The provided `key` must always have a `value` or else the program will throw <br>
-an error and not write the data.
+The provided `key` must always have a `value` or else the program will <br>
+throw an error and not write the data to the JSON file. <br>
+
+`db.setObj("objKey", "key", "value");
+
+This does the exact same thing as the previous `set` method but instead <br>
+it will create a new JSON Object, write the data, and associate the data with <br>
+the `objKey` as a nested JSON Object
+
 
 ### Get a key
 
-`db.objGet(key)` or `db.arrGet(key)`
+`db.get(key, objKey)` 
 
-When using `db.objGet()` you are requesting for it to find a key that only <br>
-has a singular value and use `db.arrGet()` when the key value is an array
+This get method returns an Object, meaning that it can not return <br>
+an array. To do that you should use the `db.arrGet(key, objKey)` method
+
+`
  

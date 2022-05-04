@@ -9,15 +9,15 @@ public class AppTest {
 
         String path = "./app.json";
 
-        final JsonDB DB = new JsonDB(path);
+        JsonDB db = new JsonDB(path);
 
-        DB.setObj("Student 1", "name", "Alex", "age", 16, "gender", "male");
+        db.setObj("Student 2", "name", "blaise", "age", 15, "favorite class", "tech class", "hates", "caleb");
 
-        Object age = DB.get("Student 1", "age");
-        System.out.println((long)age == 16);
+        Boolean hasName = db.has("Student 2", "name");
+        System.out.println(hasName);
 
-        Boolean has = DB.has("Student 1", "name");
-        System.out.println(has);
+        db.delete("Student 2", "name");
+
     }   
 
 
