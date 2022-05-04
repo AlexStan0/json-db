@@ -78,7 +78,7 @@ This parameter is 100% optional and is ment to be use when the `key` parameter r
 
 Example: <br>
   Say you had this JSON file 
-  ```JSO
+  ```JSON
   {
     "game name": "my game name",
     "player 1": {
