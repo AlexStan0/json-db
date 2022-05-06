@@ -37,6 +37,7 @@ public class JsonDB {
 
         //check to make sure the file exists
         if(!file.exists() || file.isDirectory()){
+            
             //if file does not exist it creates a new one in the current directory
             System.out.println("File does not exist, creating new file...");
             file.createNewFile();
@@ -106,7 +107,7 @@ public class JsonDB {
 
                 }
 
-            } //end for-loop 
+            } //end for-loop
 
             //create new FileWriter and write to file
             FileWriter writer = new FileWriter(path);

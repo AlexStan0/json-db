@@ -4,16 +4,34 @@ import com.jsondb.JsonDB;
 import java.util.Arrays;
 
 public class AppTest {
-    
+
     public static void main(String[] args) throws Exception {
 
-        String path = "./app.json";
-
-        JsonDB db = new JsonDB(path);
-
-        db.setObj("User 1", "age", "30");
 
     }   
 
+    public static void testSet(){
+
+    }
+
+    public static void testSetObj(){
+
+    }
+
+    public static void testGet(){
+
+    }
+
+    public static void testArrGet(){
+
+    }
+
+    public static void testDelete(){
+
+    }
+
+    public static void testDeleteAll(){
+
+    }
 
 }
