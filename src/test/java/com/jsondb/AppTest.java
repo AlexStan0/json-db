@@ -11,7 +11,7 @@ public class AppTest {
 
         JsonDB db = new JsonDB(path);
 
-        db.setObj("User 1", "name", "alex");
+        db.setObj("User 1", "age", "30");
 
     }   
 

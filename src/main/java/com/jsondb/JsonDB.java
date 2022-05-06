@@ -62,7 +62,7 @@ public class JsonDB {
      * @throws NoSuchElementException if the number of arguments are not even
      * @throws Exception 
      */
-    public void set(Object... varargs) throws Exception {
+    public static void set(Object... varargs) throws Exception {
 
         //checks to make sure varargs 'varargs' are in key, value format
         if(varargs.length %2 != 0){
@@ -129,7 +129,7 @@ public class JsonDB {
      * @throws NoSuchElementException if varargs dont follow key-value format
      * @throws Exception
      */
-    public void setObj(String objKey, Object... varargs) throws Exception{
+    public static void setObj(String objKey, Object... varargs) throws Exception{
 
         //checks to make sure varargs 'varargs' are in key, value format
         if(varargs.length %2 != 0){
@@ -231,7 +231,7 @@ public class JsonDB {
 
     /**
      * gets the value attached to key as long as the value isnt an array
-     * @param path is the path to the JSON file
+     * @param objKey option key to interact with nested JSON Objects
      * @param key is associated  with wanted value
      * @return Object wantedData 
      * @throws IllegalArgumentException when wanted data is not getable
@@ -281,8 +281,8 @@ public class JsonDB {
     } //end get()
 
     /**
-     * Get array data from an element a JSON Objtec
-     * @param path path to the JSON file
+     * Get array data from an element a JSON Object
+     * @param objKey option key to interact with nested JSON Objects
      * @param key key associated with wanted value
      * @return Object[] wantedData
      * @throws IllegalArgumentException if more than one 'objKey' is passed
@@ -344,7 +344,7 @@ public class JsonDB {
 
     /**
      * Check to see if the JSON object has a key
-     * @param path path to JSON file
+     * @param objKey option key to interact with nested JSON Objects
      * @param key key that is checked for if it exists
      * @return Boolean doesExist
      * @throws IllegalArgumentException if more than one 'objKey' is provided
@@ -409,9 +409,9 @@ public class JsonDB {
     } //end has()
 
     /**
-     * 
+     * Deletes the inputed key and value associated with it
      * @param key to identify element to be deleted
-     * @param objKey optional key is 'key' param is a nested JSON Object
+     * @param objKey option key to interact with nested JSON Objects
      * @throws IllegalArgumentException if use provides more than one 'objKey'
      * @throws NoSuchElementException if program can not find 'key' or 'objKey' in JSON file
      * @throws Exception
