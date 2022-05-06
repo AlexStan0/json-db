@@ -26,12 +26,25 @@ Follow up by creating the JAR file:
 mvn package
 ```
 
-You can use run the JAR using `java -jar /path/to/file.jar` or <br>
+You can use run the JAR using `java -jar /path/to/json-db-1.0.jar` or <br>
 you can import the jar into your maven project.
 
 ## Usage
 
 ### Import
+
+[if you just want the jar file](https://drive.google.com/file/d/1LVdUH3Bf8ik0sw11ytxZuSF6om4rCcS5/view?usp=sharing)
+
+Add these lines to you `pom.xml` 
+```XML
+<dependency>
+    <groupId>com.jsondb</groupId>
+    <artifactId>jsondb</artifactId>
+    <version>1.0</version>
+    <systemPath>/path/to/json-db-1.0.jar</systemPath>
+</dependency>
+```
+
 ```Java
 import com.jsondb.JsonDB;
 ```
@@ -41,11 +54,11 @@ import com.jsondb.JsonDB;
 JsonDB db = new JsonDB(path)
 ```
 
-the path for example is where your JSON file is located <br>
-for example: `C:/users/<name>/Desktop/javaProject/database.json`<br>
+The path for example is where your JSON file is located. <br>
+For example: `C:/Users/<user>/path/to/javaProject/database.json`<br>
 
-The constructor also checks if the file exists and if it dosent it creates <br>
-in the the highest folder and writes `{}` to it
+The constructor also checks if the file exists and if the file dosen't exist <br>
+it creates it in the the highest folder and writes `{}` to it
 
 ### Set a key
 `db.set(key, value);`
@@ -84,13 +97,13 @@ can use the `db.has()` method to check for it.
 `db.delete(key, objKey)`
 
 If a certain key needs to be deleted you can delete it using the `db.delete()` method. <br>
-This method scans the JSON file to make sure the key exists and the deletes it. The `objKey` <br>
+This method scans the JSON file to make sure the key exists and the deletes it. The `objKey` parameter <br>
 is used in case the `key` parameter is a nested JSON Object. 
 
 ### Delete everything
 
-If you no longer need to use the database and don't want the IRS to find your data than this method is for you <br>
-When you call `db.delete` it creates a new JSON Object and overwrites the one in the JSON file. Once this method <br>
+If you no longer need to use the database and don't want the IRS to find your data then this method is for you. <br>
+When you call `db.delete()` it creates a new JSON Object and overwrites the old one in the JSON file. Once this method <br>
 has been called all data previously written to the JSON file will be lost.
 
 ### NOTE: <br>
@@ -113,5 +126,5 @@ This parameter is 100% optional and is ment to be use when the `key` parameter r
 
 Say you wanted to check for the existance of `game-name`, you could call `db.has("game-name")` <br>
 But what if you wanted to check for the existance of `score` in the nested JSON Object `player 1`? <br>
-This is where the 'objKey' parameter comes in. If the 'key' paramter references a nested JSON Object it fetch or check <br>
+This is where the 'objKey' parameter comes in. If the 'key' paramter references a nested JSON Object it fetches or checks <br>
 for the existance of `objKey` in the nested JSON Object.
