@@ -38,7 +38,7 @@ public class JsonDB {
         //check to make sure the file exists
         if(!file.exists() || file.isDirectory()){
             //if file does not exist it creates a new one in the current directory
-            System.out.println("File does not exist");
+            System.out.println("File does not exist, creating new file...");
             file.createNewFile();
 
             //create a new empty JSONObject and write it to JSONfile
@@ -66,7 +66,7 @@ public class JsonDB {
 
         //checks to make sure varargs 'varargs' are in key, value format
         if(varargs.length %2 != 0){
-            throw new NoSuchElementException("varargs do not follow (key, value) format");
+            throw new NoSuchElementException("varargs do not follow key, value format");
         }
 
         //create new JSON parser and FileReader
@@ -133,7 +133,7 @@ public class JsonDB {
 
         //checks to make sure varargs 'varargs' are in key, value format
         if(varargs.length %2 != 0){
-            throw new NoSuchElementException("varargs do not follow (key, value) format");
+            throw new NoSuchElementException("varargs do not follow key, value format");
         }
 
         //create new JSON parser and FileReader
@@ -406,7 +406,7 @@ public class JsonDB {
 
         } 
 
-    } //end end()
+    } //end has()
 
     /**
      * 
