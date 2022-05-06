@@ -465,6 +465,7 @@ public class JsonDB {
 
         }
 
+        //write modified JSON Object to the JSON file
         FileWriter writer = new FileWriter(path);
         writer.write(jsonDataObj.toString());
         writer.close();
