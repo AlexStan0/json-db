@@ -129,7 +129,7 @@ public class JsonDB {
      * @throws NoSuchElementException if varargs dont follow key-value format
      * @throws Exception
      */
-    public void setObj(String objKey, Object... varargs) throws Exception {
+    public void setObj(String objKey, Object... varargs) throws Exception{
 
         //checks to make sure varargs 'varargs' are in key, value format
         if(varargs.length %2 != 0){
@@ -149,6 +149,43 @@ public class JsonDB {
             //create nested JSON Object
             JSONObject userDefinedObject = new JSONObject();
 
+            if(jsonObj.get(objKey) instanceof JSONObject){
+
+                JSONObject nestedObj = (JSONObject) jsonObj.get(objKey);
+
+                //loop through varargs
+                for(int i = 1; i < varargs.length; i+=2){
+
+                    //check to see if varargs[i] is an array
+                    if(varargs[i].getClass().isArray()){
+
+                        //cast the vararg to an array if it is
+                        Object[] varArr = (Object[]) varargs[i];
+
+                        //create JSON Array using Object array
+                        JSONArray jsonArr = new JSONArray();
+
+                        //add all elements from the array into the JSON Array
+                        jsonArr.addAll(Arrays.asList(varArr));
+
+                        //add JSON Array to nested JSON Object
+                        nestedObj.put(varargs[i-1], jsonArr);
+                    
+                    } else {
+
+                        //add vararg to nested JSON Object
+                        nestedObj.put(varargs[i-1], varargs[i]);
+
+                    }
+
+                    //add nested JSONObject to main JSON Object
+                    jsonObj.put(objKey, nestedObj);
+ 
+                } //end for-loop
+
+            } else {
+
+    
             //loop through varargs
             for(int i = 1; i < varargs.length; i+=2){
 
@@ -178,6 +215,8 @@ public class JsonDB {
 
             //add nested JSONObject to main JSON Object
             jsonObj.put(objKey, userDefinedObject);
+        
+        }
 
             //write the JSON Object to the JSON file
             FileWriter writer = new FileWriter(path);
@@ -185,8 +224,6 @@ public class JsonDB {
             writer.close();
 
         } catch (Exception e){
-
-            //if there is an error, print the error
             e.printStackTrace();
         }
 
@@ -249,7 +286,7 @@ public class JsonDB {
      * @param key key associated with wanted value
      * @return Object[] wantedData
      * @throws IllegalArgumentException if more than one 'objKey' is passed
-     * @throws IllegalArgumentException if the wanted data is not an array
+     * @throws IllegalArgumentException if the wanted data is not array
      * @throws Exception
      */
     public static Object[] arrGet(String key, Object... objKey) throws Exception {
