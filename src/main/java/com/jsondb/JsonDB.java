@@ -130,7 +130,7 @@ public class JsonDB {
      * @throws NoSuchElementException if varargs dont follow key-value format
      * @throws Exception
      */
-    public static void setObj(String objKey, Object... varargs) throws Exception{
+    public static void setObj(Object objKey, Object... varargs) throws Exception{
 
         //checks to make sure varargs 'varargs' are in key, value format
         if(varargs.length %2 != 0){
@@ -238,7 +238,7 @@ public class JsonDB {
      * @throws IllegalArgumentException when wanted data is not getable
      * @throws Exception
      */
-    public static Object get(String key, Object... objKey) throws Exception {
+    public static Object get(Object key, Object... objKey) throws Exception {
             
             //make sure only one vararg is passed 
             if(objKey.length > 1){
@@ -290,7 +290,7 @@ public class JsonDB {
      * @throws IllegalArgumentException if the wanted data is not array
      * @throws Exception
      */
-    public static Object[] arrGet(String key, Object... objKey) throws Exception {
+    public static Object[] arrGet(Object key, Object... objKey) throws Exception {
 
             //make sure only one vararg is passed 
             if(objKey.length > 1){
@@ -351,7 +351,7 @@ public class JsonDB {
      * @throws IllegalArgumentException if more than one 'objKey' is provided
      * @throws Exception
      */
-    public static Boolean has(String key, Object... objKey) throws Exception {
+    public static Boolean has(Object key, Object... objKey) throws Exception {
 
         //make sure only one vararg is passed 
         if(objKey.length > 1){
