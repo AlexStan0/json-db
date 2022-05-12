@@ -42,7 +42,6 @@ public class AppTest {
 
         //Exception handling test
         
-
     }
 
     public static void testSetObj() throws Exception {
