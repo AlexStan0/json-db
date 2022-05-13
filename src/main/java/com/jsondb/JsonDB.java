@@ -313,10 +313,6 @@ public class JsonDB {
                 //create new JSON Object to hold the nested JSON Object
                 JSONObject userDefinedObj = (JSONObject) jsonDataObj.get(key);
 
-                if(!userDefinedObj.get(key).getClass().isArray()){
-                    throw new IllegalArgumentException("Can not retrieve data if it is not an array");
-                }
-
                 //create JSON Array to hold array data 
                 JSONArray jsonArr = (JSONArray) userDefinedObj.get(objKey[0]);
 
@@ -326,11 +322,7 @@ public class JsonDB {
                 return wantedArr;
 
             } else {
-
-                if(!jsonDataObj.get(key).getClass().isArray()){
-                    throw new IllegalArgumentException("Can not retrieve data if it is not an array");
-                }
-
+                
                 //gets JSONArray from key and casts it to JSON Array
                 JSONArray jsonArr = (JSONArray) jsonDataObj.get(key);
 
