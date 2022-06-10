@@ -72,6 +72,7 @@ public class JsonDB {
     public void set(Object... varargs) {
 
         try {
+            
             //checks to make sure varargs 'varargs' are in key, value format
             if(varargs.length %2 != 0){
                 throw new NoSuchElementException("varargs do not follow key, value format");
