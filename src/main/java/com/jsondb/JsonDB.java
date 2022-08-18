@@ -69,7 +69,7 @@ public class JsonDB {
      * @param varargs data that the user wants written to the JSON file
      * @throws NoSuchElementException if the number of arguments are not even
      */
-    public void set(Object... varargs) {
+    protected void set(Object... varargs) {
 
         try {
             
@@ -135,7 +135,7 @@ public class JsonDB {
      * @param varargs Data that the nested object will hold
      * @throws NoSuchElementException if varargs dont follow key-value format
      */
-    public void setObj(Object objKey, Object... varargs) {
+    protected void setObj(Object objKey, Object... varargs) {
 
         try{
 
@@ -245,7 +245,7 @@ public class JsonDB {
      * @return Object wantedData 
      * @throws IllegalArgumentException when wanted data is not getable
      */
-    public Object get(Object key, Object... objKey) {
+    protected Object get(Object key, Object... objKey) {
             
         try {
 
@@ -305,7 +305,7 @@ public class JsonDB {
      * @return Object[] wantedData
      * @throws IllegalArgumentException if more than one 'objKey' is passed or the wanted data is not an array
      */
-    public Object[] arrGet(Object key, Object... objKey) {
+    protected Object[] arrGet(Object key, Object... objKey) {
 
         try {
 
@@ -371,7 +371,7 @@ public class JsonDB {
      * @return Boolean doesExist
      * @throws IllegalArgumentException if more than one 'objKey' is provided
      */
-    public Boolean has(Object key, Object... objKey) {
+    protected Boolean has(Object key, Object... objKey) {
 
         try {
             //make sure only one vararg is passed 
@@ -446,7 +446,7 @@ public class JsonDB {
      * @throws IllegalArgumentException if use provides more than one 'objKey'
      * @throws NoSuchElementException if program can not find 'key' or 'objKey' in JSON file
      */
-    public static void delete(String key, Object... objKey) {
+    protected void delete(String key, Object... objKey) {
 
         try {
 
@@ -514,7 +514,7 @@ public class JsonDB {
     /**
      * deletes all of the elements in the JSON file
      */
-    public static void deleteAll() {
+    protected void deleteAll() {
 
         try {
             //Create new empty JSON object
