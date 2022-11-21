@@ -65,186 +65,90 @@ public class JsonDB {
 
     /**
      * Writes JSON data to JSON file in key-value format
-     * @param path path for the JSON file
      * @param varargs data that the user wants written to the JSON file
      * @throws NoSuchElementException if the number of arguments are not even
      */
-    protected void set(Object... varargs) {
+    protected void set(Object... varargs){
 
         try {
             
-            //checks to make sure varargs 'varargs' are in key, value format
-            if(varargs.length %2 != 0){
-                throw new NoSuchElementException("varargs do not follow key, value format");
-            }
-
-            //create new JSON parser and FileReader
-            JSONParser parser = new JSONParser();
-            FileReader jsonFile = new FileReader(path);
-
-            //Reads the data in JSON file and assigns to Object jsonData
-            Object jsonData = parser.parse(jsonFile);
-
-            //assigns data to a JSONObject object
-            JSONObject jsonDataObj = (JSONObject)jsonData;
-
-            //Loops through varargs to check the provided varargs is an Array
-            for(int i = 1; i < varargs.length; i+=2){
-
-                //check if vararg is an array
-                if(varargs[i].getClass().isArray()){
-
-                    //cast vararg to an Object array
-                    Object[] varArr = (Object[]) varargs[i];
-
-                    //create a new JSON Array
-                    JSONArray jsonArr = new JSONArray();
-
-                    //add all elements from the array into the JSON Array
-                    jsonArr.addAll(Arrays.asList(varArr));
-
-                    //add jsonArr to JSON Object
-                    jsonDataObj.put(varargs[i-1], jsonArr);
-                    
-                } else {
-
-                    //if vararg is not an array 
-                    jsonDataObj.put(varargs[i-1], varargs[i]);
-
-                }
-
-            } //end for-loop
-
-            //create new FileWriter and write to file
-            FileWriter writer = new FileWriter(path);
-            writer.write(jsonDataObj.toString());
-            writer.close();
-
-        } catch (Exception e) {
-
-            //if there is an error, print the error
-            e.printStackTrace();
-
-        }
-
-    } //end set()
-
-    /**
-     * Allows user to create nested JSON Object 
-     * @param objKey key for JSONObject value
-     * @param varargs Data that the nested object will hold
-     * @throws NoSuchElementException if varargs dont follow key-value format
-     */
-    protected void setObj(Object objKey, Object... varargs) {
-
-        try{
-
-            //checks to make sure varargs 'varargs' are in key, value format
-            if(varargs.length %2 != 0){
-                throw new NoSuchElementException("varargs do not follow key, value format");
-            }
-
             //create new JSON parser and FileReader
             JSONParser parser = new JSONParser();
             FileReader jsonFile = new FileReader(path);
 
             //reads JSON file and creates JSONObject from read data
             Object jsonData = parser.parse(jsonFile);
-            JSONObject jsonObj = (JSONObject) jsonData;
+            JSONObject jsonDataObj = (JSONObject) jsonData;
 
-            //create nested JSON Object
-            JSONObject userDefinedObject = new JSONObject();
+            if(varargs.length < 2)  
+                throw new Exception("You need 2 or more attributes to write");
+            
 
-            if(jsonObj.get(objKey) instanceof JSONObject){
+            if(varargs.length % 2 != 0){
 
-                JSONObject nestedObj = (JSONObject) jsonObj.get(objKey);
+                JSONObject parentObj = new JSONObject();
+                Object parentObjKey = varargs[0];
 
-                //loop through varargs
                 for(int i = 1; i < varargs.length; i+=2){
+                    
+                    if(varargs[i].getClass().isArray()){
 
-                    //check to see if varargs[i] is an array
-                    if(varargs[i].getClass().isArray() || varargs[i] instanceof Collection){
-
-                        //cast the vararg to an array if it is
                         Object[] varArr = (Object[]) varargs[i];
+                        Object objKey = varargs[i-1];
 
-                        //create JSON Array using Object array
                         JSONArray jsonArr = new JSONArray();
 
-                        //add all elements from the array into the JSON Array
                         jsonArr.addAll(Arrays.asList(varArr));
 
-                        //add JSON Array to nested JSON Object
-                        nestedObj.put(varargs[i-1], jsonArr);
-                    
+                        parentObj.put(objKey, jsonArr);
+
+
                     } else {
 
-                        //add vararg to nested JSON Object
-                        nestedObj.put(varargs[i-1], varargs[i]);
+                        parentObj.put(varargs[i-1], varargs[i]);
 
                     }
 
-                    //add nested JSONObject to main JSON Object
-                    jsonObj.put(objKey, nestedObj);
- 
-                } //end for-loop
+                    jsonDataObj.put(parentObjKey, parentObj);
+
+                }
+
 
             } else {
 
-    
-            //loop through varargs
-            for(int i = 1; i < varargs.length; i+=2){
+                for(int i = 1; i < varargs.length; i+= 2){
 
-                //check to see if varargs[i] is an array
-                if(varargs[i].getClass().isArray()){
+                    if(varargs[i].getClass().isArray()){
 
-                    //cast the vararg to an array if it is
-                    Object[] varArr = (Object[]) varargs[i];
+                        Object varArr = (Object[]) varargs[i];
+                        JSONArray jsonArr = new JSONArray();
 
-                    //create JSON Array using Object array
-                    JSONArray jsonArr = new JSONArray();
+                        jsonArr.addAll(Arrays.asList(varArr));
+                        jsonDataObj.put(varargs[i-1], jsonArr);
 
-                    //add all elements from the array into the JSON Array
-                    jsonArr.addAll(Arrays.asList(varArr));
 
-                    //add JSON Array to nested JSON Object
-                    userDefinedObject.put(varargs[i-1], jsonArr);
-                    
-                } else {
+                    } else {
 
-                    //add vararg to nested JSON Object
-                    userDefinedObject.put(varargs[i-1], varargs[i]);
+                        jsonDataObj.put(varargs[i-1], varargs[i]);
+
+                    }
 
                 }
- 
-            } //end for-loop
 
-            //add nested JSONObject to main JSON Object
-            jsonObj.put(objKey, userDefinedObject);
-        
-        }
+            }
 
             //write the JSON Object to the JSON file
             FileWriter writer = new FileWriter(path);
-            writer.write(jsonObj.toString());
+            writer.write(jsonDataObj.toString());
             writer.close();
 
         } catch (Exception e){
 
-            //if error print it to console
             e.printStackTrace();
-            
         }
 
-    } //end setObj()
-
-    /**
-     * gets the value attached to key as long as the value isnt an array
-     * @param objKey option key to interact with nested JSON Objects
-     * @param key is associated  with wanted value
-     * @return Object wantedData 
-     * @throws IllegalArgumentException when wanted data is not getable
-     */
+    }
+    
     protected Object get(Object key, Object... objKey) {
             
         try {
